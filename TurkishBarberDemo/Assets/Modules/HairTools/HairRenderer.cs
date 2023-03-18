@@ -10,7 +10,10 @@ public class HairRenderer : MonoBehaviour
     [SerializeField] private Material hairBladeMaterial;
 
 	[SerializeField] private float hairSize = 1f;
+
 	[SerializeField] private Gradient defaultHairColorGradient;
+
+	[SerializeField] private bool useVertexNormalsForRotate;
 
     [SerializeField] private ShadowCastingMode ShadowCasting = ShadowCastingMode.Off;
 	[SerializeField] private bool ReceiveShadows = true;
@@ -65,15 +68,24 @@ public class HairRenderer : MonoBehaviour
 		var hairSurfaceMesh = hairSurfaceMeshFilter.sharedMesh;
         var surfaceVertexCount = hairSurfaceMesh.vertexCount;
 
-		for (var i=0; i<surfaceVertexCount; i++) {
+		var hairSurfacePosition = hairSurfaceMeshTransform.position;
+
+        for (var i=0; i<surfaceVertexCount; i++) {
+			var weight = hairSurfaceMesh.colors[i].maxColorComponent;
+            if (weight < 0.5f) {
+				continue;
+			}
+
 			var localPoint = hairSurfaceMesh.vertices[i];
 			var globalPoint = hairSurfaceMeshTransform.TransformPoint(localPoint);
 
             var dataItem = new HairInstanceData();
 
 			var positionItem = globalPoint;
-			var rotationItem = Quaternion.identity;
-            var scaleItem = new Vector3(0.5f, 0.5f, 0.5f);
+
+			var rotationItem = Quaternion.LookRotation (globalPoint - hairSurfacePosition);
+
+            var scaleItem = Vector3.one * weight * hairSize;
 
             dataItem.Matrix = Matrix4x4.TRS(positionItem, rotationItem, scaleItem);
             dataItem.MatrixInverse = dataItem.Matrix.inverse;
