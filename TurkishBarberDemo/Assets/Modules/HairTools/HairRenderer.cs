@@ -18,6 +18,8 @@ namespace HairTools {
 
         private HairInstanceData[] hairBladeInstances;
 
+        public HairInstanceData[] HairInstances => hairBladeInstances;
+
         [SerializeField]
         [HideInInspector]
         private HairBaker hairBaker;

@@ -1,25 +1,18 @@
 ﻿using UnityEngine;
 
 namespace HairTools {
-    [RequireComponent(typeof (HairBaker))]
-    [RequireComponent(typeof (HairRenderer))]
-    public class HairRaycaster : MonoBehaviour {
-        [HideInInspector]
-        [SerializeField]
-        private HairBaker hairBaker;
-
-        [HideInInspector]
-        [SerializeField]
-        private HairRenderer hairRenderer;
+    public class HairRaycaster {
+        private readonly HairBaker hairBaker;
+        private readonly HairRenderer hairRenderer;
 
         private readonly RaycastHit[] allocatedHits = new RaycastHit[256];
 
-        private void OnValidate() {
-            hairBaker       = GetComponent<HairBaker>();
-            hairRenderer    = GetComponent<HairRenderer>();
+        public HairRaycaster () {
+            hairBaker       = Object.FindObjectOfType<HairBaker>();
+            hairRenderer    = Object.FindObjectOfType<HairRenderer>();
         }
 
-        public int RaycastNonAlloc (Vector3 origin, Vector3 direction, float brushSize, ref int[] allocatedVertexIndexes) {
+        public int RaycastNonAlloc (Vector3 origin, Vector3 direction, float brushSize, int[] allocatedVertexIndexes) {
             var layer = hairBaker.SurfaceLayer;
 
             var hitCount = Physics.SphereCastNonAlloc(
