@@ -21,7 +21,8 @@ Material:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: HairBladeMaterial
-  m_Shader: {fileID: -6465566751694194690, guid: 4dee8768b47e0964b843c736d991cb1f, type: 3}
+  m_Shader: {fileID: -6465566751694194690, guid: 4dee8768b47e0964b843c736d991cb1f,
+    type: 3}
   m_ValidKeywords:
   - PROCEDURAL_INSTANCING_ON
   m_InvalidKeywords: []
@@ -40,6 +41,10 @@ Material:
         m_Offset: {x: 0, y: 0}
     - TexItem:
         m_Texture: {fileID: 2800000, guid: a37c840dcb95f1a409062adecb8adf14, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _Albedo:
+        m_Texture: {fileID: 2800000, guid: ede50c763b1bced4d92b80300be74063, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _BaseMap:
@@ -103,6 +108,7 @@ Material:
     - PROCEDURAL_INSTANCING: 1
     - Vector1_311650e53b7c467d994e7cdabe4f93e7: -1
     - _AlphaClip: 0
+    - _AlphaClipThreshold: 0.5
     - _Blend: 0
     - _BumpScale: 1
     - _ClearCoatMask: 0
@@ -131,8 +137,10 @@ Material:
     - _ZWrite: 1
     m_Colors:
     - Color_08f85752bfc3415eaac37b5f7093c004: {r: 2.9960785, g: 0, b: 0, a: 0}
-    - Color_09a005383a1e44bcaff18033b0e48634: {r: 0, g: 5.3403134, b: 0.02796013, a: 0}
-    - Color_b3480a423fb846afa256c957bbd7434c: {r: 0.01886791, g: 0.01886791, b: 0.01886791, a: 0}
+    - Color_09a005383a1e44bcaff18033b0e48634: {r: 0, g: 5.3403134, b: 0.02796013,
+        a: 0}
+    - Color_b3480a423fb846afa256c957bbd7434c: {r: 0.01886791, g: 0.01886791, b: 0.01886791,
+        a: 0}
     - _BaseColor: {r: 1, g: 1, b: 1, a: 1}
     - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}

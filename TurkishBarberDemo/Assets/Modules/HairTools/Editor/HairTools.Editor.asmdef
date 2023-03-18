@@ -1,0 +1,18 @@
+{
+    "name": "HairTools.Editor",
+    "rootNamespace": "",
+    "references": [
+        "GUID:fa2bdcf78b08a5040b1065048b3e6d08"
+    ],
+    "includePlatforms": [
+        "Editor"
+    ],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

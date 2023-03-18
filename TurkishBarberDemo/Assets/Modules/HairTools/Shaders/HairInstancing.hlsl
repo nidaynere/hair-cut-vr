@@ -26,6 +26,12 @@ void GetInstanceItemID_float(out float Out){
 	#endif
 }
 
+//This is a replacement for the old 'UnityObjectToClipPos()'
+float4 ObjectToClipPos (float3 pos)
+{
+    return mul (UNITY_MATRIX_VP, mul (UNITY_MATRIX_M, float4 (pos,1)));
+}
+
 void InstancingItem_float(float3 Position, out float3 Out) {
 	Out = Position;
 }
