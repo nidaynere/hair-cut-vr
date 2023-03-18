@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using Unity.Collections;
 using UnityEditor;
 using UnityEngine;
 
@@ -13,16 +14,19 @@ namespace HairTools {
         [HideInInspector]
         private HairBakedData[] hairBakeData;
 
-        private readonly Dictionary<int, int> hashMap = new Dictionary<int, int>();
-
         public int BakedCount => hairBakeData == null ? 0 : hairBakeData.Length;
 
         public HairBakedData[] BakedData => hairBakeData;
+        public NativeArray<HairBakedData> NativeBakedData { private set; get; }
 
         public LayerMask SurfaceLayer => hairSurfaceMeshFilter.gameObject.layer;
 
-        public bool TryGetHairIndex (int vertexId, out int hairIndex) {
-            return hashMap.TryGetValue (vertexId, out hairIndex); 
+        private void Start() {
+            NativeBakedData = new NativeArray<HairBakedData> (BakedData, Allocator.Persistent);
+        }
+
+        private void OnDestroy() {
+            NativeBakedData.Dispose();
         }
 
 #if UNITY_EDITOR
@@ -42,8 +46,6 @@ namespace HairTools {
 
             for (var i = 0; i < surfaceVertexCount; i++) {
                 EditorUtility.DisplayProgressBar("Baking", $"{i + 1}/{surfaceVertexCount}", (float)i / surfaceVertexCount);
-
-                hashMap.Add(i, -1);
 
                 var weight = colors[i].maxColorComponent;
                 if (weight < minVertexColorWeight) {
@@ -66,8 +68,6 @@ namespace HairTools {
 
                 var randomColor = defaultHairColorGradient.Evaluate(Random.Range(0f, 1f));
                 bakeData.color = randomColor;
-
-                hashMap[i] = count;
 
                 hairBakeData[count++] = bakeData;
             }

@@ -1,6 +1,9 @@
 ﻿
 using FStudio.HairTools;
 using HairTools.InputDevices;
+using HairTools.Jobs;
+using Unity.Collections;
+using Unity.Jobs;
 using UnityEngine;
 
 namespace HairTools.Functions {
@@ -10,8 +13,6 @@ namespace HairTools.Functions {
         private readonly DeviceInput deviceInput;
         private readonly HairRaycaster hairRaycaster;
         private readonly HairInput hairInput;
-
-        private readonly int[] mAllocatedResults = new int[256];
 
         public RemoveHairFunction() {
             hairRenderer = Object.FindObjectOfType<HairRenderer>();
@@ -26,25 +27,36 @@ namespace HairTools.Functions {
                 return;
             }
 
-            var position = deviceInput.GetPosition();
-            var direction = deviceInput.GetDirection();
+            var ray = deviceInput.GetRay();
 
-            var count = hairRaycaster.RaycastNonAlloc(position, 
-                direction, 
-                hairInput.brushSize,
-                mAllocatedResults);
+            if (!hairRaycaster.TryHit (ray,
+                hairInput.brushSize,out var point)) {
+                return;
+            }
 
-            for (var i=0; i<count; i++) {
-                if (!hairBaker.TryGetHairIndex(mAllocatedResults[i], out var hairIndex)) {
+            var queryLength = hairBaker.NativeBakedData.Length;
+
+            var results = new NativeArray<bool>(queryLength, Allocator.TempJob);
+
+            var raycastJob = new RaycastJob(point, hairInput.brushSize, results, hairBaker.NativeBakedData);
+            var jobHandle = raycastJob.Schedule(queryLength, 1);
+            jobHandle.Complete();
+
+            float dT = Time.deltaTime;
+
+            for (var i=0; i<queryLength; i++) {
+                if (!raycastJob.results[i]) {
                     continue;
                 }
 
-                var instance = hairRenderer.HairInstances[hairIndex];
+                var instance = hairRenderer.HairInstances[i];
                 var color = instance.Color;
-                color.a = 0;
+                color.a -= dT;
                 instance.Color = color;
-                hairRenderer.HairInstances[hairIndex] = instance;
+                hairRenderer.HairInstances[i] = instance;
             }
+
+            results.Dispose();
         }
     }
 }

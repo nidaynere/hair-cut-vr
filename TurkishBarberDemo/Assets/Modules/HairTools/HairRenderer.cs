@@ -55,7 +55,7 @@ namespace HairTools {
             hairBladeInstances = new HairInstanceData[bakedLength];
             for (var i = 0; i < bakedLength; i++) {
                 var instance = new HairInstanceData();
-                instance.Matrix = Matrix4x4.TRS(hairBakeData[i].position, hairBakeData[i].rotation, hairBakeData[i].scale * Random.Range (hairSizeMinMax.x, hairSizeMinMax.y));
+                instance.Matrix = Matrix4x4.TRS(hairBakeData[i].position, hairBakeData[i].rotation, hairBakeData[i].scale * Random.Range(hairSizeMinMax.x, hairSizeMinMax.y));
                 instance.MatrixInverse = instance.Matrix.inverse;
                 instance.Color = hairBakeData[i].color;
                 hairBladeInstances[i] = instance;
@@ -63,6 +63,13 @@ namespace HairTools {
 
             argsBuffer = GetArgsBuffer((uint)bakedLength);
             instancesBuffer = new ComputeBuffer(bakedLength, HairInstanceData.Size());
+        }
+
+        private void FixedUpdate() {
+            RefreshInstances();
+        }
+
+        public void RefreshInstances() {
             instancesBuffer.SetData(hairBladeInstances);
             hairBladeMaterial.SetBuffer("_PerInstanceItemData", instancesBuffer);
         }

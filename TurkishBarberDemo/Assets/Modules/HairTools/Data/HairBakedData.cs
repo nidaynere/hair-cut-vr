@@ -3,7 +3,6 @@ using System;
 using UnityEngine;
 
 namespace HairTools {
-
     [Serializable]
     public struct HairBakedData {
         public Vector3 position;
