@@ -1,4 +1,4 @@
-using FStudio.HairTools;
+using HairTools;
 using HairTools.Functions;
 using UnityEngine;
 

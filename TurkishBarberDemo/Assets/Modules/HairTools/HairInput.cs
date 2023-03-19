@@ -2,7 +2,7 @@
 using HairTools.Functions;
 using UnityEngine;
 
-namespace FStudio.HairTools {
+namespace HairTools {
 
     [DisallowMultipleComponent]
     public class HairInput : MonoBehaviour {
@@ -12,6 +12,7 @@ namespace FStudio.HairTools {
         public Color color;
         public float size = 1;
         public float sprayForce = 7;
+        public float patForce = 12;
 
         public void SetFunction (IHairFunction hairFunction) {
             this.hairFunction = hairFunction; 

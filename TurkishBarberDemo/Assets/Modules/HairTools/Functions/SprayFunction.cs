@@ -1,5 +1,5 @@
 ﻿
-using FStudio.HairTools;
+using HairTools;
 using HairTools.InputDevices;
 using HairTools.Jobs;
 using Unity.Collections;
@@ -26,7 +26,7 @@ namespace HairTools.Functions {
 
         public void Trigger() {
             if (!deviceInput.IsPressed()) {
-                patFunction.Pat(Vector3.zero, 1);
+                patFunction.Pat(Vector3.zero);
                 return;
             }
 
@@ -37,7 +37,7 @@ namespace HairTools.Functions {
                 return;
             }
 
-            patFunction.Pat(point, hairInput.brushSize);
+            patFunction.Pat(point);
 
             var queryLength = hairBaker.NativeBakedData.Length;
 

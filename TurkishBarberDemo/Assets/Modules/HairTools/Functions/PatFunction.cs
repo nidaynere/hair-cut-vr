@@ -1,4 +1,4 @@
-﻿using FStudio.HairTools;
+﻿
 using HairTools.InputDevices;
 using UnityEngine;
 
@@ -6,6 +6,7 @@ namespace HairTools.Functions {
     public class PatFunction : IHairFunction {
         private const string PAT_SHADER_PROPERTY = "_PatInput";
         private const string RADIUS_SHADER_PROPERTY = "_RadiusInput";
+        private const string PAT_FORCE_SHADER_PROPERTY = "_PatForce";
 
         private readonly DeviceInput deviceInput;
         private readonly HairRaycaster hairRaycaster;
@@ -29,12 +30,13 @@ namespace HairTools.Functions {
                 return;
             }
 
-            Pat(point, hairInput.brushSize);
+            Pat(point);
         }
 
-        public void Pat(Vector3 point, float brushSize) {
+        public void Pat(Vector3 point) {
             Shader.SetGlobalVector(PAT_SHADER_PROPERTY, point);
-            Shader.SetGlobalFloat(RADIUS_SHADER_PROPERTY, brushSize);
+            Shader.SetGlobalFloat(RADIUS_SHADER_PROPERTY, hairInput.brushSize);
+            Shader.SetGlobalFloat(PAT_FORCE_SHADER_PROPERTY, hairInput.patForce);
         }
     }
 }
