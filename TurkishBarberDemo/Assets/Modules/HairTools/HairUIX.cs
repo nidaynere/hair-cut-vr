@@ -13,7 +13,7 @@ namespace HairTools {
         }
 
         private void Start() {
-            hairInput.SetFunction(new RemoveHairFunction());
+            hairInput.SetFunction(new SprayFunction());
         }
     }
 }

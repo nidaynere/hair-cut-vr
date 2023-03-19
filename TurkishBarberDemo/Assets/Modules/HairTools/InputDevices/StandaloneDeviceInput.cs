@@ -1,6 +1,4 @@
-﻿
-using System.Linq;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.InputSystem;
 
 namespace HairTools.InputDevices {

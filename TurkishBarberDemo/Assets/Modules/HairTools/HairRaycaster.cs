@@ -12,7 +12,7 @@ namespace HairTools {
             var layer = hairBaker.SurfaceLayer;
 
             if (Physics.SphereCast (
-                ray, brushSize, out var hit, Mathf.Infinity, 1 << layer)) {
+                ray, 1, out var hit, Mathf.Infinity, 1 << layer)) {
                 point = hit.point;
                 return true;
             }

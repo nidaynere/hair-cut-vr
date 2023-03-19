@@ -13,7 +13,6 @@ namespace HairTools {
         [SerializeField]
         [HideInInspector]
         private HairBakedData[] hairBakeData;
-
         public int BakedCount => hairBakeData == null ? 0 : hairBakeData.Length;
 
         public HairBakedData[] BakedData => hairBakeData;

@@ -7,32 +7,37 @@ using Unity.Jobs;
 using UnityEngine;
 
 namespace HairTools.Functions {
-    public class RemoveHairFunction : IHairFunction {
+    public class SprayFunction : IHairFunction {
         private readonly HairBaker hairBaker;
         private readonly HairRenderer hairRenderer;
         private readonly DeviceInput deviceInput;
         private readonly HairRaycaster hairRaycaster;
         private readonly HairInput hairInput;
+        private readonly PatFunction patFunction;
 
-        public RemoveHairFunction() {
+        public SprayFunction () {
             hairRenderer = Object.FindObjectOfType<HairRenderer>();
             hairBaker = Object.FindObjectOfType<HairBaker>();
             hairInput = Object.FindObjectOfType<HairInput>();
             deviceInput = Object.FindObjectOfType<DeviceInput>();
             hairRaycaster = new HairRaycaster();
+            patFunction = new PatFunction();
         }
 
         public void Trigger() {
             if (!deviceInput.IsPressed()) {
+                patFunction.Pat(Vector3.zero, 1);
                 return;
             }
 
             var ray = deviceInput.GetRay();
 
-            if (!hairRaycaster.TryHit (ray,
-                hairInput.brushSize,out var point)) {
+            if (!hairRaycaster.TryHit(ray,
+                hairInput.brushSize, out var point)) {
                 return;
             }
+
+            patFunction.Pat(point, hairInput.brushSize);
 
             var queryLength = hairBaker.NativeBakedData.Length;
 
@@ -44,14 +49,17 @@ namespace HairTools.Functions {
 
             float dT = Time.deltaTime;
 
-            for (var i=0; i<queryLength; i++) {
+            var targetHairColor = hairInput.color;
+            var sprayForce = hairInput.sprayForce;
+
+            for (var i = 0; i < queryLength; i++) {
                 if (!raycastJob.results[i]) {
                     continue;
                 }
 
                 var instance = hairRenderer.HairInstances[i];
                 var color = instance.Color;
-                color.a -= dT;
+                color = Color.Lerp(color, targetHairColor, dT * sprayForce);
                 instance.Color = color;
                 hairRenderer.HairInstances[i] = instance;
             }
