@@ -43,7 +43,7 @@ namespace HairTools.Functions {
 
             var results = new NativeArray<bool>(queryLength, Allocator.TempJob);
 
-            var raycastJob = new RaycastJob(point, hairInput.brushSize, results, hairBaker.NativeBakedData);
+            var raycastJob = new HairRootDistanceJob(point, hairInput.brushSize, results, hairBaker.NativeBakedData);
             var jobHandle = raycastJob.Schedule(queryLength, 1);
             jobHandle.Complete();
 

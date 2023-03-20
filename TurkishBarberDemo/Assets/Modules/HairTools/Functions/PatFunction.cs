@@ -1,5 +1,4 @@
-﻿
-using HairTools.InputDevices;
+﻿using HairTools.InputDevices;
 using UnityEngine;
 
 namespace HairTools.Functions {
@@ -30,7 +29,7 @@ namespace HairTools.Functions {
                 return;
             }
 
-            Pat(point);
+            Pat (point);
         }
 
         public void Pat(Vector3 point) {

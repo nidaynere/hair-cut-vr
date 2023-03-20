@@ -14,6 +14,10 @@ namespace HairTools {
         public float sprayForce = 7;
         public float patForce = 12;
 
+        private void Start() {
+            hairFunction = new ColorSprayFunction();
+        }
+
         public void SetFunction (IHairFunction hairFunction) {
             this.hairFunction = hairFunction; 
         }
