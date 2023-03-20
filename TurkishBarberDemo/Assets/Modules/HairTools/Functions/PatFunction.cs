@@ -22,6 +22,8 @@ namespace HairTools.Functions {
         }
 
         public void Trigger() {
+            Shader.SetGlobalVector(PAT_SHADER_PROPERTY, Vector3.up * -1000);
+
             foreach (var deviceInput in deviceInputs) {
                 var triggerValue = deviceInput.TriggerValue();
 

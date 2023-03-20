@@ -1,6 +1,10 @@
 #ifndef HAIR_SHADER_INCLUDED
 #define HAIR_SHADER_INCLUDED
 
+#if !defined(UNITY_INSTANCING_ENABLED)
+#define UNITY_INSTANCING_ENABLED
+#endif
+
 struct InstanceItemData {
 	float4x4 worldMatrix;
 	float4x4 worldMatrixInverse;
