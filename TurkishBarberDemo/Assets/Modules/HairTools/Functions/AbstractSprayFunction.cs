@@ -7,15 +7,15 @@ using Unity.Jobs;
 using UnityEngine;
 
 namespace HairTools.Functions {
-    public class SprayFunction : IHairFunction {
-        private readonly HairBaker hairBaker;
-        private readonly HairRenderer hairRenderer;
-        private readonly DeviceInput deviceInput;
-        private readonly HairRaycaster hairRaycaster;
-        private readonly HairInput hairInput;
-        private readonly PatFunction patFunction;
+    public abstract class AbstractSprayFunction : IHairFunction {
+        protected readonly HairBaker hairBaker;
+        protected readonly HairRenderer hairRenderer;
+        protected readonly DeviceInput deviceInput;
+        protected readonly HairRaycaster hairRaycaster;
+        protected readonly HairInput hairInput;
+        protected readonly PatFunction patFunction;
 
-        public SprayFunction () {
+        public AbstractSprayFunction () {
             hairRenderer = Object.FindObjectOfType<HairRenderer>();
             hairBaker = Object.FindObjectOfType<HairBaker>();
             hairInput = Object.FindObjectOfType<HairInput>();
@@ -47,24 +47,11 @@ namespace HairTools.Functions {
             var jobHandle = raycastJob.Schedule(queryLength, 1);
             jobHandle.Complete();
 
-            float dT = Time.deltaTime;
-
-            var targetHairColor = hairInput.color;
-            var sprayForce = hairInput.sprayForce;
-
-            for (var i = 0; i < queryLength; i++) {
-                if (!raycastJob.results[i]) {
-                    continue;
-                }
-
-                var instance = hairRenderer.HairInstances[i];
-                var color = instance.Color;
-                color = Color.Lerp(color, targetHairColor, dT * sprayForce);
-                instance.Color = color;
-                hairRenderer.HairInstances[i] = instance;
-            }
+            OnPat(raycastJob.results);
 
             results.Dispose();
         }
+
+        protected abstract void OnPat([ReadOnly] in NativeArray<bool> patOrNotIndexes);
     }
 }

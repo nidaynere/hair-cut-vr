@@ -20,6 +20,8 @@ namespace HairTools {
 
         public LayerMask SurfaceLayer => hairSurfaceMeshFilter.gameObject.layer;
 
+        [SerializeField] private bool useVertexNormalsForRotation;
+
         private void Start() {
             NativeBakedData = new NativeArray<HairBakedData> (BakedData, Allocator.Persistent);
         }
@@ -57,7 +59,10 @@ namespace HairTools {
                 var bakeData = new HairBakedData();
 
                 var positionItem = globalPoint;
-                var rotationItem = Quaternion.LookRotation(globalPoint - surfacePosition);
+
+                var rotationItem = useVertexNormalsForRotation ? 
+                    Quaternion.LookRotation(hairSurfaceMesh.normals[i]) : 
+                    Quaternion.LookRotation(globalPoint - surfacePosition);
 
                 var scaleItem = Vector3.one * weight;
 
