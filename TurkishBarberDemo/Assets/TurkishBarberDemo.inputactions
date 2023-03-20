@@ -24,18 +24,9 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "CutHairFunction",
+                    "name": "Select",
                     "type": "Button",
-                    "id": "8d0482ab-cbb1-4cba-813d-72295b567aa7",
-                    "expectedControlType": "Button",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
-                },
-                {
-                    "name": "SprayHairFunction",
-                    "type": "Button",
-                    "id": "ea50bf6b-74fd-474b-b27f-839040f0fd27",
+                    "id": "23646779-2fc1-44c1-8f50-483c9f88a450",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
@@ -67,23 +58,12 @@
                 },
                 {
                     "name": "",
-                    "id": "9055a84a-96df-4ac8-9c00-efffdd937087",
-                    "path": "<Keyboard>/1",
+                    "id": "80cce240-ead0-4e92-b697-e4d0836ac643",
+                    "path": "<Keyboard>/enter",
                     "interactions": "",
                     "processors": "",
                     "groups": "Keyboard&Mouse",
-                    "action": "CutHairFunction",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "3cdb4005-14e5-46a9-ac91-51204559d63e",
-                    "path": "<Keyboard>/2",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "Keyboard&Mouse",
-                    "action": "SprayHairFunction",
+                    "action": "Select",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

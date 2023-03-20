@@ -8,14 +8,16 @@ namespace HairTools.Functions {
 
         private readonly HairVFX hairVFX;
 
-        public CutHairFunction() : base() {
+        public CutHairFunction(float brushSize, float patPower) : base(brushSize, patPower) {
             hairVFX = Object.FindObjectOfType<HairVFX>();
         }
 
-        protected override void OnPat([ReadOnly] in NativeArray<bool> patOrNotIndexes) {
+        protected override void OnSpray(float value01, [ReadOnly] in NativeArray<bool> patOrNotIndexes) {
             var dT = Time.deltaTime;
 
             var queryLength = patOrNotIndexes.Length;
+
+            var lerpSpeed = dT * CUT_HAIR_COLOR_LERP_SPEED * value01;
 
             for (var i = 0; i < queryLength; i++) {
                 if (!patOrNotIndexes[i]) {
@@ -24,11 +26,11 @@ namespace HairTools.Functions {
             
                 var instance = hairRenderer.HairInstances[i];
                 var color = instance.Color;
-                color = Color.Lerp(color, CUT_HAIR_TARGET_COLOR, dT * CUT_HAIR_COLOR_LERP_SPEED);
+                color = Color.Lerp(color, CUT_HAIR_TARGET_COLOR, lerpSpeed);
                 instance.Color = color;
                 hairRenderer.HairInstances[i] = instance;
 
-                hairVFX.PlayCutVFX(instance.Matrix.GetPosition(), color * color.a, 1);
+                hairVFX.PlayCutVFX(instance.Matrix.GetPosition(), color * color.a * value01, 1);
             }
         }
     }

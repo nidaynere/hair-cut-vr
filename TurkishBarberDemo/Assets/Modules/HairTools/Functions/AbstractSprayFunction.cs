@@ -10,48 +10,53 @@ namespace HairTools.Functions {
     public abstract class AbstractSprayFunction : IHairFunction {
         protected readonly HairBaker hairBaker;
         protected readonly HairRenderer hairRenderer;
-        protected readonly DeviceInput deviceInput;
+        protected readonly DeviceInput[] deviceInputs;
         protected readonly HairRaycaster hairRaycaster;
-        protected readonly HairInput hairInput;
         protected readonly PatFunction patFunction;
 
-        public AbstractSprayFunction () {
+        private readonly float brushSize;
+
+        public AbstractSprayFunction (float brushSize, float patPower) {
             hairRenderer = Object.FindObjectOfType<HairRenderer>();
             hairBaker = Object.FindObjectOfType<HairBaker>();
-            hairInput = Object.FindObjectOfType<HairInput>();
-            deviceInput = Object.FindObjectOfType<DeviceInput>();
+            deviceInputs = Object.FindObjectsOfType<DeviceInput>();
             hairRaycaster = new HairRaycaster();
-            patFunction = new PatFunction();
+            patFunction = new PatFunction(brushSize, patPower);
+            this.brushSize = brushSize;
         }
 
         public void Trigger() {
-            if (!deviceInput.IsPressed()) {
-                patFunction.Pat(Vector3.zero);
-                return;
+            foreach (var deviceInput in deviceInputs) {
+                var triggerValue = deviceInput.TriggerValue();
+
+                if (triggerValue == 0f) {
+                    patFunction.Pat(Vector3.zero);
+                    continue;
+                }
+
+                var ray = deviceInput.GetRay();
+
+                if (!hairRaycaster.TryHit(ray,
+                    brushSize, out var point)) {
+                    return;
+                }
+
+                patFunction.Pat(point);
+
+                var queryLength = hairBaker.NativeBakedData.Length;
+
+                var results = new NativeArray<bool>(queryLength, Allocator.TempJob);
+
+                var raycastJob = new HairRootDistanceJob(point, brushSize, results, hairBaker.NativeBakedData);
+                var jobHandle = raycastJob.Schedule(queryLength, 1);
+                jobHandle.Complete();
+
+                OnSpray(triggerValue, raycastJob.results);
+
+                results.Dispose();
             }
-
-            var ray = deviceInput.GetRay();
-
-            if (!hairRaycaster.TryHit(ray,
-                hairInput.brushSize, out var point)) {
-                return;
-            }
-
-            patFunction.Pat(point);
-
-            var queryLength = hairBaker.NativeBakedData.Length;
-
-            var results = new NativeArray<bool>(queryLength, Allocator.TempJob);
-
-            var raycastJob = new HairRootDistanceJob(point, hairInput.brushSize, results, hairBaker.NativeBakedData);
-            var jobHandle = raycastJob.Schedule(queryLength, 1);
-            jobHandle.Complete();
-
-            OnPat(raycastJob.results);
-
-            results.Dispose();
         }
 
-        protected abstract void OnPat([ReadOnly] in NativeArray<bool> patOrNotIndexes);
+        protected abstract void OnSpray(float value01, [ReadOnly] in NativeArray<bool> patOrNotIndexes);
     }
 }
