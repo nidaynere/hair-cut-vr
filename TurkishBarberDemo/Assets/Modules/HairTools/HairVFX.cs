@@ -6,7 +6,7 @@ namespace HairTools {
         [SerializeField] private ParticleSystem cutVFX;
         [SerializeField] private ParticleSystem sprayVFX;
 
-        private static readonly Vector3 offset = new Vector3(0, 1, 0);
+        private static readonly Vector3 offset = new Vector3(0, 0.05f, 0);
 
         public void PlayCutVFX (in Vector3 point, in Color color, int count) {
             cutVFX.transform.position = point + offset;

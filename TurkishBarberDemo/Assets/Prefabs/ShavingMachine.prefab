@@ -297,5 +297,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   orientationUpVector: {x: 0, y: 1, z: 0}
-  brushSize: 2
+  brushSize: 0.2
   patForce: 12

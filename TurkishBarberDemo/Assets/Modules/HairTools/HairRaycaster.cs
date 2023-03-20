@@ -11,12 +11,13 @@ namespace HairTools {
         public bool TryHit (Ray ray, float brushSize, out Vector3 point) {
             var layer = hairBaker.SurfaceLayer;
 
-            if (Physics.SphereCast (
-                ray, brushSize, out var hit, Mathf.Infinity, 1 << layer)) {
+            Debug.DrawRay(ray.origin, ray.direction, Color.yellow, 1);
+
+            if (Physics.Raycast (
+                ray, out var hit, Mathf.Infinity, 1 << layer)) {
                 point = hit.point;
                 return true;
             }
-
             point = Vector3.zero;
             return false;
         }

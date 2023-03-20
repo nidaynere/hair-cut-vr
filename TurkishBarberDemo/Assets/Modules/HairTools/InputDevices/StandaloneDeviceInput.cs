@@ -19,8 +19,6 @@ namespace HairTools.InputDevices {
 
             var ray = Camera.main.ScreenPointToRay(actualPos);
 
-            Debug.DrawRay(ray.origin, ray.direction * 100, Color.red, 1);
-
             return ray;
         }
 

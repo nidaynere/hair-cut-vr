@@ -9,11 +9,6 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 984723415310576655, guid: 81c8e02fc28bfb84aab4071a17aa249a,
         type: 3}
-      propertyPath: brushSize
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 984723415310576655, guid: 81c8e02fc28bfb84aab4071a17aa249a,
-        type: 3}
       propertyPath: sprayPower
       value: 7
       objectReference: {fileID: 0}

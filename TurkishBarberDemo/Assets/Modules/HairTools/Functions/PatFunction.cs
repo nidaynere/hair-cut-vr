@@ -43,7 +43,7 @@ namespace HairTools.Functions {
 
         public void Pat(Vector3 point) {
             Shader.SetGlobalVector(PAT_SHADER_PROPERTY, point);
-            Shader.SetGlobalFloat(RADIUS_SHADER_PROPERTY, brushSize);
+            Shader.SetGlobalFloat(RADIUS_SHADER_PROPERTY, brushSize * 2);
             Shader.SetGlobalFloat(PAT_FORCE_SHADER_PROPERTY, patForce);
         }
     }

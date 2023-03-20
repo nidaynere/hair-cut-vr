@@ -12,7 +12,7 @@ namespace HairTools.ItemSwitcher {
         private void Awake() {
             deviceInputs = FindObjectsOfType<DeviceInput>();
 
-            SwitchItem(0);
+            SwitchItem(activeIndex++);
         }
 
         private void Update() {

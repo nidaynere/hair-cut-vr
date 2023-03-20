@@ -46,8 +46,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   orientationUpVector: {x: 0, y: 1, z: 0}
-  brushSize: 1
-  patForce: 12
+  brushSize: 0.2
+  patForce: 10
 --- !u!1 &3379805717737996874
 GameObject:
   m_ObjectHideFlags: 0

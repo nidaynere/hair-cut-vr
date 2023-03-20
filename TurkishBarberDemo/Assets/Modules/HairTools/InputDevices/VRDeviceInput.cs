@@ -16,8 +16,6 @@ namespace HairTools.InputDevices {
 
             var ray = new Ray(inputPosition, inputDirection * Vector3.forward);
 
-            Debug.DrawRay(ray.origin, ray.direction * 100, Color.red, 1);
-
             return ray;
         }
 
