@@ -1,5 +1,15 @@
 # hair-cut
 
+
+# how it works
+- Uses vertex color data of the mesh and bakes the hair data.
+- Creates a compute buffer for GPU instancing.
+- Batches only one hair blade, renders the required amount of hair blades by reading material instance buffer.
+
+Inspired by;
+ https://github.com/GeorgeAdamon/ways-to-render-1M-cubes
+ https://github.com/KDSBest/Render1MillionObjectsWithUnityAndShaderGraph
+
 Used assets:
 Head => https://sketchfab.com/3d-models/human-head-926ba74256cf463c920afc1fdc8bc6ae
 Stand => https://sketchfab.com/3d-models/book-stand-fb784262748d414fa1ff882a871a5af8
