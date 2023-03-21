@@ -25,7 +25,7 @@ namespace HairTools.Items {
                     particleSystem.Play();
                 }
             } else {
-                if (!particleSystem.isPlaying) {
+                if (particleSystem.isPlaying) {
                     particleSystem.Stop();
                 }
             }
