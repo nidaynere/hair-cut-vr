@@ -1,7 +1,7 @@
 # hair-cut-in-oculus-quest-2
 
 # preview
-![](preview.gif)
+![](preview.gif) <br>
 https://youtu.be/mXF_oFcQ4Zw
 
 # how it works
