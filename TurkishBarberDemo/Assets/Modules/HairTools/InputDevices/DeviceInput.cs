@@ -5,5 +5,7 @@ namespace HairTools.InputDevices {
         public abstract bool IsSelectPressed ();
         public abstract float TriggerValue();
         public abstract Ray GetRay();
+
+        public abstract Quaternion GetRotation();
     }
 }

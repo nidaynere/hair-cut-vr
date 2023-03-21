@@ -29,5 +29,9 @@ namespace HairTools.InputDevices {
         public override bool IsSelectPressed() {
             return selectAction.action.WasPressedThisFrame();
         }
+
+        public override Quaternion GetRotation() {
+            return Camera.main.transform.rotation;
+        }
     }
 }

@@ -19,12 +19,11 @@ namespace HairTools.Items {
         }
 
         private void LateUpdate() {
-
             foreach (var deviceInput in deviceInputs) {
                 var ray = deviceInput.GetRay();
 
                 transform.position = ray.origin;
-                transform.rotation = Quaternion.LookRotation(ray.direction, orientationUpVector);
+                transform.rotation = deviceInput.GetRotation();
             }
         }
     }

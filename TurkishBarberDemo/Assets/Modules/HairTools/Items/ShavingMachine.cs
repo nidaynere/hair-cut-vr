@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace HairTools.Items {
     internal class ShavingMachine : AbstractItem {
-        [SerializeField] private float brushSize = 1, patForce = 12;
+        [SerializeField] private float brushSize = 1, patForce = 12, cutForce = 0.5f;
         private CutHairFunction cutHairFunction;
 
         protected override IHairFunction hairFunction => cutHairFunction;
@@ -11,7 +11,7 @@ namespace HairTools.Items {
         [SerializeField] private new ParticleSystem particleSystem;
 
         private void Awake() {
-            cutHairFunction = new CutHairFunction(brushSize, patForce, OnUse);
+            cutHairFunction = new CutHairFunction(brushSize, patForce, cutForce, OnUse);
         }
 
         private void OnUse (float value01) {

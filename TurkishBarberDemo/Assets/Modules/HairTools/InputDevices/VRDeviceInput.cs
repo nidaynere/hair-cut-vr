@@ -20,6 +20,11 @@ namespace HairTools.InputDevices {
             return ray;
         }
 
+        public override Quaternion GetRotation() {
+            var inputDirection = inputRotationAction.action.ReadValue<Quaternion>();
+            return inputDirection;
+        }
+
         public override float TriggerValue() {
             return triggerAction.action.ReadValue<float>();
         }
