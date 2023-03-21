@@ -1,4 +1,5 @@
 ﻿using HairTools.InputDevices;
+using System;
 using UnityEngine;
 
 namespace HairTools.Functions {
@@ -13,12 +14,16 @@ namespace HairTools.Functions {
         private readonly float brushSize;
         private readonly float patForce;
 
-        public PatFunction(float brushSize, float patForce) {
-            deviceInputs = Object.FindObjectsOfType<DeviceInput>();
+        private event Action<float> onUse;
+
+        public PatFunction(float brushSize, float patForce, Action<float> onUse = null) {
+            deviceInputs = UnityEngine.Object.FindObjectsOfType<DeviceInput>();
             hairRaycaster = new HairRaycaster();
 
             this.patForce = patForce;
             this.brushSize = brushSize;
+
+            this.onUse = onUse;
         }
 
         public void Trigger() {
@@ -26,6 +31,8 @@ namespace HairTools.Functions {
 
             foreach (var deviceInput in deviceInputs) {
                 var triggerValue = deviceInput.TriggerValue();
+
+                onUse?.Invoke(triggerValue);
 
                 if (triggerValue == 0f) {
                     continue;

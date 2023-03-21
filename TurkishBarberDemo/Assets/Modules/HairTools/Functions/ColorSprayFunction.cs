@@ -1,4 +1,5 @@
 ﻿
+using System;
 using Unity.Collections;
 using UnityEngine;
 
@@ -9,8 +10,8 @@ namespace HairTools.Functions {
         private readonly Color sprayColor;
         private readonly float sprayPower;
 
-        public ColorSprayFunction(float brushSize, float patPower, Color sprayColor, float sprayPower) : base(brushSize, patPower) {
-            hairVFX = Object.FindObjectOfType<HairVFX>();
+        public ColorSprayFunction(float brushSize, float patPower, Color sprayColor, float sprayPower, Action<float> onUse = null) : base(brushSize, patPower, onUse) {
+            hairVFX = UnityEngine.Object.FindObjectOfType<HairVFX>();
 
             this.sprayPower = sprayPower;
             this.sprayColor = sprayColor;

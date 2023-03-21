@@ -1,7 +1,7 @@
 ﻿
-using HairTools;
 using HairTools.InputDevices;
 using HairTools.Jobs;
+using System;
 using Unity.Collections;
 using Unity.Jobs;
 using UnityEngine;
@@ -16,18 +16,26 @@ namespace HairTools.Functions {
 
         private readonly float brushSize;
 
-        public AbstractSprayFunction (float brushSize, float patPower) {
-            hairRenderer = Object.FindObjectOfType<HairRenderer>();
-            hairBaker = Object.FindObjectOfType<HairBaker>();
-            deviceInputs = Object.FindObjectsOfType<DeviceInput>();
+        private ColorSprayFunction cutHairFunction;
+
+        private event Action<float> onUse;
+
+        public AbstractSprayFunction (float brushSize, float patPower, Action<float> onUse = null) {
+            hairRenderer = UnityEngine.Object.FindObjectOfType<HairRenderer>();
+            hairBaker = UnityEngine.Object.FindObjectOfType<HairBaker>();
+            deviceInputs = UnityEngine.Object.FindObjectsOfType<DeviceInput>();
             hairRaycaster = new HairRaycaster();
             patFunction = new PatFunction(brushSize, patPower);
+
             this.brushSize = brushSize;
+            this.onUse = onUse;
         }
 
         public void Trigger() {
             foreach (var deviceInput in deviceInputs) {
                 var triggerValue = deviceInput.TriggerValue();
+
+                onUse?.Invoke(triggerValue);
 
                 if (triggerValue == 0f) {
                     patFunction.Pat(Vector3.zero);
