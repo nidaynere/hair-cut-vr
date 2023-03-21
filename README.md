@@ -2,6 +2,8 @@
 
 # preview
 ![](preview.gif) <br>
+
+# full preview
 https://youtu.be/mXF_oFcQ4Zw
 
 # how it works
