@@ -16,8 +16,6 @@ namespace HairTools.Functions {
 
         private readonly float brushSize;
 
-        private ColorSprayFunction cutHairFunction;
-
         private event Action<float> onUse;
 
         public AbstractSprayFunction (float brushSize, float patPower, Action<float> onUse = null) {

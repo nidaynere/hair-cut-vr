@@ -108,7 +108,7 @@ Material:
     - PROCEDURAL_INSTANCING: 1
     - Vector1_311650e53b7c467d994e7cdabe4f93e7: -1
     - _AlphaClip: 0
-    - _AlphaClipThreshold: -0.73
+    - _AlphaClipThreshold: 0.55
     - _Blend: 0
     - _BumpScale: 1
     - _ClearCoatMask: 0

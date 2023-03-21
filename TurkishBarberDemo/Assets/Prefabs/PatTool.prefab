@@ -984,7 +984,7 @@ ParticleSystem:
         m_Curve:
         - serializedVersion: 3
           time: 0
-          value: 0.1333313
+          value: 0.26568604
           inSlope: 0.040906716
           outSlope: 0.040906716
           tangentMode: 0
@@ -4859,8 +4859,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   orientationUpVector: {x: 0, y: 1, z: 0}
-  brushSize: 0.2
-  patForce: 10
+  brushSize: 0.15
+  patForce: 25
   particleSystem: {fileID: 797956897737009164}
 --- !u!1001 &7694994868899300446
 PrefabInstance:

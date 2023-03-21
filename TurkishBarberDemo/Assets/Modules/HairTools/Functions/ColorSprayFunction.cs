@@ -5,14 +5,10 @@ using UnityEngine;
 
 namespace HairTools.Functions {
     public class ColorSprayFunction : AbstractSprayFunction {
-        private readonly HairVFX hairVFX;
-
         private readonly Color sprayColor;
         private readonly float sprayPower;
 
         public ColorSprayFunction(float brushSize, float patPower, Color sprayColor, float sprayPower, Action<float> onUse = null) : base(brushSize, patPower, onUse) {
-            hairVFX = UnityEngine.Object.FindObjectOfType<HairVFX>();
-
             this.sprayPower = sprayPower;
             this.sprayColor = sprayColor;
         }
@@ -34,8 +30,6 @@ namespace HairTools.Functions {
                 color = Color.Lerp(color, sprayColor, lerpSpeed);
                 instance.Color = color;
                 hairRenderer.HairInstances[i] = instance;
-
-                hairVFX.PlaySprayVFX(instance.Matrix.GetPosition(), sprayColor * color.a * value01, 1);
             }
         }
     }
