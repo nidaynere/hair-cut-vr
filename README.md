@@ -1,5 +1,6 @@
 # hair-cut
 
+![](preview.gif)
 
 # how it works
 - Uses vertex color data of the mesh and bakes the hair data.
