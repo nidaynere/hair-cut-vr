@@ -8,7 +8,7 @@ using System;
 namespace HairTools.Jobs {
     [BurstCompile]
     public struct HairRootDistanceJob : IJobParallelFor {
-        private const int GRID_SIZE = 8;
+        private const int GRID_SIZE = 1;
 
         [ReadOnly] private NativeArray<HairBakedData> bakedData;
         [ReadOnly] private Vector3 point;

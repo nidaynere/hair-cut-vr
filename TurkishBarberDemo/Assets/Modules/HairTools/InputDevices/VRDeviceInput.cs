@@ -1,4 +1,3 @@
-using HairTools.Functions;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -13,6 +12,8 @@ namespace HairTools.InputDevices {
         public override Ray GetRay() {
             var inputPosition = inputPositionAction.action.ReadValue<Vector3>();
             var inputDirection = inputRotationAction.action.ReadValue<Quaternion>();
+
+            Debug.DrawRay(inputPosition, inputDirection * Vector3.forward * Mathf.Infinity, Color.red, 2);
 
             var ray = new Ray(inputPosition, inputDirection * Vector3.forward);
 

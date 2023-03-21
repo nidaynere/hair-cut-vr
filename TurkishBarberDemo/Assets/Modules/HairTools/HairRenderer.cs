@@ -63,6 +63,10 @@ namespace HairTools {
 
             argsBuffer = GetArgsBuffer((uint)bakedLength);
             instancesBuffer = new ComputeBuffer(bakedLength, HairInstanceData.Size());
+
+            RefreshInstances();
+
+            hairBladeMaterial.SetBuffer("_PerInstanceItemData", instancesBuffer);
         }
 
         private void FixedUpdate() {
@@ -71,7 +75,6 @@ namespace HairTools {
 
         public void RefreshInstances() {
             instancesBuffer.SetData(hairBladeInstances);
-            hairBladeMaterial.SetBuffer("_PerInstanceItemData", instancesBuffer);
         }
 
         public void Update() {
